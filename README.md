@@ -1,46 +1,95 @@
-# Getting Started with Create React App
+# AFEX REACT PROJECTS FOLDER STRUCTURE
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Table of Contents
 
-## Available Scripts
+- [Overview](#overview)
+  - [Folder structure](#folder-structure)
+  - [Styling](#styling)
+  - [Imports](#imports)
+- [Code Styling](#code-style)
+- [Tests](#tests)
+  - [Integration Tests](#integration-tests)
+  - [Unit Tests](#unit-tests)
+  - [Widget Tests](#widget-tests)
+  - [Coverage](#test-coverage)
 
-In the project directory, you can run:
+### Overview
 
-### `npm start`
+#### Folder structure
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- `assets`
+- `components`
+- `contexts`
+- `data`
+- `pages`
+- `utils`
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+#### Styling
 
-### `npm test`
+The recommended styling is [Tailwind Css](https://tailwindcss.com)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+#### Imports
 
-### `npm run build`
+The order of imports is very important. Enusre to add a space between import groups
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Group 1
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1.  React imports `import React, { useState } from 'react'`
+2.  Package imports `import { FaStar } from 'react-icons/fa '`
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Group 2
 
-### `npm run eject`
+3.  Page component imports `import { Hero } from './components/hero'`
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Group 3
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+4.  Contexts imports `import { useAuthCtx } from '../contexts `
+5.  Utils imports `import { axios } from '../utils `
+6.  Data imports `import { dummyData } from "../data `
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+Group 4
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+7.  Style imports `import './style.css' `
 
-## Learn More
+### Code Style
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+For asynchronous code execution, use async-await. Ensure your code is non-blocking.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Do
+
+```
+  const fetchRemoteResource = async () => {
+    const resp = await axios.get("https://remote-url.com");
+
+    if(!resp.data || resp.status !== 200) return; // You can catch the error
+    and update accordingly or exit the function.
+
+    const { data } = resp.data;
+
+    return data;
+  }
+```
+
+Don't
+
+```
+  axios.get("https://remote-url.com")
+    .then(resp => resp.data)
+    .catch(err => console.log(err));
+```
+
+### Tests
+
+We carry out the following type of tests
+
+- Integration tests
+- Unit tests
+- Snapshot Tests
+
+#### Integration Tests
+
+#### Unit Tests
+
+#### Snapshot Tests
+
+#### Test Coverage
